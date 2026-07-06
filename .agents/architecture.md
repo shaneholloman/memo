@@ -631,6 +631,7 @@ src/
 │   │   ├── noise-registry.ts   # NoisePattern type + NOISE_REGISTRY — declarative noise filter definitions
 │   │   ├── client-filter.ts   # shouldDropClientEvent — iterates registry for client/both-scoped patterns
 │   │   ├── server-filter.ts   # shouldDropServerEvent — iterates registry for server/both-scoped patterns
+│   │   ├── replay-filter.ts   # isReplayHydrationError — filters replay recording events (beforeAddRecordingEvent)
 │   │   └── capture.ts         # captureSupabaseError, captureApiError
 │   ├── theme.tsx            # ThemeProvider + useTheme hook (light/dark/system, localStorage persistence)
 │   ├── toast.ts            # Lazy-loaded sonner toast wrapper to reduce initial bundle size
@@ -677,6 +678,6 @@ Root config files:
 
 ## Observability
 
-- **Sentry client**: session replay (10% normal, 100% on error), route transition tracking
+- **Sentry client**: session replay (10% normal, 100% on error), route transition tracking, replay hydration error filter (`beforeAddRecordingEvent` via `isReplayHydrationError`)
 - **Sentry server**: PII enabled, local variables, 10% trace sampling in production
 - **Health endpoint**: `GET /api/health` — checks DB connectivity via sequential HEAD pings (first warms connection, second measures warm latency), returns status, latency (last sample), per-sample breakdown, threshold, and dynamically computed region co-location info
